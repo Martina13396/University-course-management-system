@@ -1,27 +1,32 @@
-package com.spring.boot.universitycoursemanagmentsystem.model;
+package com.spring.boot.universitycoursemanagmentsystem.model.lec9.model;
 
-import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+
 @Entity
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Student {
+public class Employee {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique = true)
     private String name;
-    private String email;
 
+    private int age;
 
-    @ManyToMany(mappedBy = "students")
-   private List<Course> courses;
+    private double salary;
+
+    @OneToMany(mappedBy = "employee" ,  cascade = CascadeType.ALL)
+    List<Email> emails = new ArrayList<>();
 }

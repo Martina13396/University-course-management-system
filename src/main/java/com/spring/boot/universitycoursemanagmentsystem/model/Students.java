@@ -14,17 +14,14 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Course {
+public class Students {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
-    private String description;
+    private String name;
+    private String email;
 
 
-    @ManyToMany
-    private List<Students> students;
-
-    @ManyToOne
-    private Instructor instructor;
+    @ManyToMany(mappedBy = "students")
+   private List<Course> courses;
 }

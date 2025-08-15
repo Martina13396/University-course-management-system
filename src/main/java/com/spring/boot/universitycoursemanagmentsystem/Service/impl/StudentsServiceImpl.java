@@ -1,10 +1,10 @@
 package com.spring.boot.universitycoursemanagmentsystem.Service.impl;
 
-import com.spring.boot.universitycoursemanagmentsystem.Service.StudentService;
+import com.spring.boot.universitycoursemanagmentsystem.Service.StudentsService;
 import com.spring.boot.universitycoursemanagmentsystem.model.Course;
-import com.spring.boot.universitycoursemanagmentsystem.model.Student;
+import com.spring.boot.universitycoursemanagmentsystem.model.Students;
 import com.spring.boot.universitycoursemanagmentsystem.repo.CourseRepo;
-import com.spring.boot.universitycoursemanagmentsystem.repo.StudentRepo;
+import com.spring.boot.universitycoursemanagmentsystem.repo.StudentsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,18 +12,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class StudentServiceImpl implements StudentService {
+public class StudentsServiceImpl implements StudentsService {
 
-    private final StudentRepo studentRepo;
+    private final StudentsRepo studentRepo;
     private final CourseRepo courseRepo;
 
     @Autowired
-    public StudentServiceImpl(StudentRepo studentRepo, CourseRepo courseRepo) {
+    public StudentsServiceImpl(StudentsRepo studentRepo, CourseRepo courseRepo) {
         this.studentRepo = studentRepo;
         this.courseRepo = courseRepo;
     }
     @Override
-    public Student createStudent(Student student) {
+    public Students createStudent(Students student) {
         if(student.getId() != null) {
             throw new RuntimeException("student id must be null");
         }
@@ -31,13 +31,13 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getAllStudents() {
+    public List<Students> getAllStudents() {
         return studentRepo.findAll();
     }
 
     @Override
-    public Student getStudentById(Long id) {
-       Optional<Student> studentOptional = studentRepo.findById(id);
+    public Students getStudentById(Long id) {
+       Optional<Students> studentOptional = studentRepo.findById(id);
                if(studentOptional.isEmpty()) {
                   return null;
                }else {
@@ -46,9 +46,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student registerStudentToCourse(Long StudentId, Long courseId) {
+    public Students registerStudentToCourse(Long StudentId, Long courseId) {
 
-        Student student = studentRepo.findById(StudentId)
+        Students student = studentRepo.findById(StudentId)
                 .orElseThrow(() -> new RuntimeException("Student not found"));
         Course course = courseRepo.findById(courseId)
                 .orElseThrow(()-> new RuntimeException("course not found"));
